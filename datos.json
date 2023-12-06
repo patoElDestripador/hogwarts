@@ -1,0 +1,3 @@
+var datosCualidades = {
+    "cualidades" : ["Valor","fuerza","audacia","Justicia","Lealtad","Paciencia","Creatividad","Erudición","Inteligencia","Ambición","Determinación","Astucia"]
+}
