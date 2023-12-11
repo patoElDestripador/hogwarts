@@ -1,0 +1,28 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; 
+
+}
+
+video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover
+}
+
+.tocoManual {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.efectoDifuminado{
+    background-color: rgba(255, 255, 255, 0.228);
+}
+.efectoDifuminado:focus{
+    background-color: rgba(255, 255, 255, 0.228);
+    border-color:rgba(255, 255, 255, 0.231) ;
+}
+

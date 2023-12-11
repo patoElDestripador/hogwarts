@@ -1,3 +1,3 @@
 var datosCualidades = {
-    "cualidades" : ["Valor","fuerza","audacia","Justicia","Lealtad","Paciencia","Creatividad","Erudición","Inteligencia","Ambición","Determinación","Astucia"]
+    "cualidades" : ["Valiente", "Fuerte", "Audaz", "Justo", "Leal", "Paciente", "Creativo", "Erudito", "Inteligente", "Ambicioso", "Determinado", "Astuto", "Empático", "Honesto", "Optimista", "Resiliente", "Perspicaz", "Amable", "Gentil", "Adaptable", "Sincero", "Innovador", "Diligente", "Aventurero", "Confiado", "Colaborativo", "Generoso", "Modesto", "Compasivo", "Versátil", "Curioso", "Habilidoso", "Gracioso", "Tolerante", "Fiel", "Esperanzado", "Fiable", "Sensato", "Cauteloso", "Apasionado", "Cordial", "Inspirador", "Decidido", "Agradecido"]
 }
