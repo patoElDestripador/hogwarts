@@ -42,20 +42,13 @@ class Hogwarts {
     generarLinaje(){
         let linajepadre = document.getElementById("idFamliaPadre").value;
         let linajemadre = document.getElementById("idFamliaMadre").value;
-        //1 = Mestizo  
-        //2 = Muggle
-        //3 = Sangre pura 
-
         switch (linajemadre + linajepadre) {
             case "22":
                 return "muggle"
-                break;
             case "33":
                 return "sangre pura"
-                break;
             default:
                 return "meztizo"
-                break;
         }
     }
     seleccionarCasa(){
@@ -65,24 +58,35 @@ class Hogwarts {
     }
 
     validarTestDePersonalidad(valor){
-        let seleciconBoton = document.getElementById(`btn-check-outlined${valor}`).checked
-        let SeleciconCualidad = datosCualidades.cualidades[valor]
-        if(this.cualidadesTestDePersonalidad.length <= 8 && seleciconBoton ){
+        let seleciconBoton = document.getElementById(`btn-check-outlined${valor}`).checked;
+        let SeleciconCualidad = datosCualidades.cualidades[valor];
+        let mensaje = document.createElement("h3");
+        mensaje.setAttribute("id","idTextoBloqueoCualidades")
+
+
+        if(this.cualidadesTestDePersonalidad.length <= 8 && seleciconBoton){
             this.cualidadesTestDePersonalidad.push(SeleciconCualidad)
+            
         }else if(!seleciconBoton){
             let posicion = this.cualidadesTestDePersonalidad.findIndex(e=> e === SeleciconCualidad)
-            if( posicion != -1)
-            this.cualidadesTestDePersonalidad.splice(posicion,1)
-        }else {
-            console.log("solo puedes elegir 9 cualidades");
-            seleciconBoton = false
+            if( posicion != -1){
+                this.cualidadesTestDePersonalidad.splice(posicion,1)
+            }
+        }else if (this.cualidadesTestDePersonalidad.length == 8) {
+
+            // aun se trabaja en encontrar el problema de el length y eliminar una vez haya quitado la vuelta esa 
         }
-        console.log(this.cualidadesTestDePersonalidad);
+        if(this.cualidadesTestDePersonalidad.length == 8){
+            mensaje.innerText = "Solo puedes seleccionar 9 cualidades";
+            mensaje.classList = "text-danger text-center";
+            document.getElementById("textoArriba").appendChild(mensaje);
+        }
+
     }
 
 
     generarAnimalPatronus(){
-        document.getElementById("contenedor").remevoChild(formualario);
+        //document.getElementById("contenedor").remevoChild(formualario);
     }
 
     //Front Generadores
@@ -90,8 +94,8 @@ class Hogwarts {
         let test = document.createElement("div");
         test.classList = "z-3 position-absolute w-100 mt-5 row"
         test.innerHTML = `
-        <div class="col-6 offset-3 border border-white text-center text-light mt-5 p-3">
-                <h1>Selecciona hasta 5 atributos que te identifiquen</h1>
+        <div class="col-6 offset-3 border border-white text-center text-light mt-5 p-3" id="textoArriba">
+                <h1>Selecciona hasta 9   atributos que te identifiquen</h1>
         </div>
             <div class="col-6 offset-3 border border-white p-3" >
                 <div class="ContendorCheck text-light mt-5">
@@ -107,17 +111,18 @@ class Hogwarts {
 
         </div>`;
         document.getElementById("contenedor").appendChild(test);
-    console.log("datos",datosCualidades.cualidades)
-    for (let index = 0; index < datosCualidades.cualidades.length; index++) {
-        document.getElementById("conetendorCualidades").innerHTML += `
-        
-        <div class="mb-4 col-2 d-grid gap-2">
-            <input type="checkbox" class="btn-check" onChange="hogwarts.validarTestDePersonalidad(${index});" id="btn-check-outlined${index}" autocomplete="off">
-            <label class="btn btn-outline-light" for="btn-check-outlined${index}">${datosCualidades.cualidades[index]}</label>
-        </div>
-        `
+        for (let index = 0; index < datosCualidades.cualidades.length; index++) {
+            document.getElementById("conetendorCualidades").innerHTML += `
+            <div class="mb-4 col-2 d-grid gap-2">
+                <input type="checkbox" class="btn-check" onChange="hogwarts.validarTestDePersonalidad(${index});" id="btn-check-outlined${index}" autocomplete="off">
+                <label class="btn btn-outline-light" for="btn-check-outlined${index}">${datosCualidades.cualidades[index]}</label>
+            </div>
+            `
+        }
     }
-    }
+    
+
+
     generarVideoIntro(){
         var musika = document.getElementById('musika');
         var video1 = document.getElementById('video1');
@@ -140,6 +145,7 @@ class Hogwarts {
     generarFormulario(){
         let formualario = document.createElement("div");
         formualario.classList = "z-3 position-absolute w-100 d-flex justify-content-center align-items-center min-vh-100"
+        formualario.setAttribute("id","idDivFormulario")
         formualario.innerHTML = `        
         <form class="w-50 ms-5 efectoDifuminado p-4 rounded">
             <div class="mb-3 text-center text-light">
@@ -187,11 +193,11 @@ class Hogwarts {
         document.getElementById("contenedor").appendChild(formualario);
         
         this.guardarEstudiante();
-        document.getElementById("contenedor").remevoChild(formualario);
+        document.getElementById("contenedor").remevoChild(document.getElementById("idDivFormulario"));
         this.generarTestPersonalidad()
     }
 
 }
 
 let hogwarts = new Hogwarts();
-hogwarts.generarTestPersonalidad();
+hogwarts.generarTestPersonalidad()
