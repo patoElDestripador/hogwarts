@@ -79,10 +79,9 @@ class Hogwarts {
                 this.cualidadesTestDePersonalidadAux.splice(posicion,1)
             }
         }
-        if(this.cualidadesTestDePersonalidadAux.length == 10){
-            botonEnvioTest.setAttribute("disabled", true);
+        if(this.cualidadesTestDePersonalidadAux.length >= 10){
+            console.log(botonEnvioTest.setAttribute("disabled",""))
             mensajeCualidad.style.display = 'block';
-
         }
         if(this.cualidadesTestDePersonalidadAux.length <= 9 ){
             mensajeCualidad.style.display = 'none';
