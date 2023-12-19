@@ -20,6 +20,7 @@ class Hogwarts {
         }
         this.contadorTestDePersonalidad = 0;
         this.cualidadesTestDePersonalidad = [];
+        this.cualidadesTestDePersonalidadAux = [];
         //this.generarVideoIntro()
         //dependiendo de la casa saldria el personaje
     }
@@ -58,30 +59,37 @@ class Hogwarts {
     }
 
     validarTestDePersonalidad(valor){
-        let seleciconBoton = document.getElementById(`btn-check-outlined${valor}`).checked;
-        let SeleciconCualidad = datosCualidades.cualidades[valor];
-        let mensaje = document.createElement("h3");
-        mensaje.setAttribute("id","idTextoBloqueoCualidades")
-
-
-        if(this.cualidadesTestDePersonalidad.length <= 8 && seleciconBoton){
-            this.cualidadesTestDePersonalidad.push(SeleciconCualidad)
-            
-        }else if(!seleciconBoton){
-            let posicion = this.cualidadesTestDePersonalidad.findIndex(e=> e === SeleciconCualidad)
+        let seleccionBoton = document.getElementById(`btn-check-outlined${valor}`).checked;
+        let seleccionCualidad = datosCualidades.cualidades[valor];
+        let mensajeCualidad = document.getElementById("idTextoBloqueoCualidades")
+        let botonEnvioTest = document.getElementById("botonEnvioTest")
+        if(seleccionBoton){
+            this.cualidadesTestDePersonalidadAux.push(seleccionCualidad)
+        }
+        
+        if(this.cualidadesTestDePersonalidad.length <= 8 && seleccionBoton){
+            this.cualidadesTestDePersonalidad.push(seleccionCualidad)
+        }else if(!seleccionBoton){
+            let posicion = this.cualidadesTestDePersonalidad.findIndex(e=> e === seleccionCualidad)
+            let posicion2 = this.cualidadesTestDePersonalidadAux.findIndex(e=> e === seleccionCualidad)
             if( posicion != -1){
                 this.cualidadesTestDePersonalidad.splice(posicion,1)
             }
-        }else if (this.cualidadesTestDePersonalidad.length == 8) {
-
-            // aun se trabaja en encontrar el problema de el length y eliminar una vez haya quitado la vuelta esa 
+            if( posicion2 != -1){
+                this.cualidadesTestDePersonalidadAux.splice(posicion,1)
+            }
         }
-        if(this.cualidadesTestDePersonalidad.length == 8){
-            mensaje.innerText = "Solo puedes seleccionar 9 cualidades";
-            mensaje.classList = "text-danger text-center";
-            document.getElementById("textoArriba").appendChild(mensaje);
-        }
+        if(this.cualidadesTestDePersonalidadAux.length == 10){
+            botonEnvioTest.setAttribute("disabled", true);
+            mensajeCualidad.style.display = 'block';
 
+        }
+        if(this.cualidadesTestDePersonalidadAux.length <= 9 ){
+            mensajeCualidad.style.display = 'none';
+        }
+        if(this.cualidadesTestDePersonalidad.length == 9){
+            botonEnvioTest.removeAttribute("disabled");
+        }
     }
 
 
@@ -92,10 +100,12 @@ class Hogwarts {
     //Front Generadores
     generarTestPersonalidad(){
         let test = document.createElement("div");
-        test.classList = "z-3 position-absolute w-100 mt-5 row"
+        test.classList = "z-3 position-absolute w-100 mb-3 row"
         test.innerHTML = `
         <div class="col-6 offset-3 border border-white text-center text-light mt-5 p-3" id="textoArriba">
-                <h1>Selecciona hasta 9   atributos que te identifiquen</h1>
+                <h1>Selecciona 9 atributos que te identifiquen</h1>
+                <h3 class="text-danger text-center" style="display: none;" id="idTextoBloqueoCualidades">Solo puedes seleccionar 9 atributos</h3>
+                
         </div>
             <div class="col-6 offset-3 border border-white p-3" >
                 <div class="ContendorCheck text-light mt-5">
@@ -105,7 +115,7 @@ class Hogwarts {
                     </div>
                 </div>
                 <div class=" col-6 offset-3 d-grid ">
-                <button class="btn btn btn-outline-light" type="button" onClick="hogwarts.validarTestDePersonalidad()">enviar</button>
+                <button id="botonEnvioTest" class="btn btn btn-outline-light" type="button" onClick="hogwarts.validarTestDePersonalidad()" disabled>enviar</button>
                 </div>
             </div>
 
